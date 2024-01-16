@@ -1,0 +1,36 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gateway-service
+  web:
+    locale: en_US
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        enabled: true
+        register: true
+        deregister: true
+        prefer-ip-address: true
+        health-check-interval: 10s
+        health-check-critical-timeout: 30s
+        health-check-path: /health
+        heartbeat:
+          enabled: true
+    gateway:
+      routes:
+        - id: chat
+          uri: lb://chat-service
+          predicates:
+            - Path=/api/chat/**
+          filters:
+            - RewritePath=/api/(?<oldPath>.*), /$\{oldPath}
+        - id: tenant
+          uri: lb://tenant-service
+          predicates:
+            - Path=/api/tenant/**
+          filters:
+            - RewritePath=/api/(?<oldPath>.*), /$\{oldPath}
