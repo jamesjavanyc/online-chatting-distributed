@@ -14,7 +14,7 @@ public class RabbitMQConfiguration {
      */
     @Bean
     public Queue rabbitmqQueue(){
-        return new Queue("queue",true,false,false);
+        return new Queue("tenant.questionanswer",true,false,false);
     }
 
     /**
@@ -22,7 +22,7 @@ public class RabbitMQConfiguration {
      */
     @Bean
     public DirectExchange rabbitmqDirectExchange(){
-        return new DirectExchange("uri_recording_exchange",true,false);
+        return new DirectExchange("recording_exchange",true,false);
     }
 
     /**
@@ -30,7 +30,7 @@ public class RabbitMQConfiguration {
      */
     @Bean
     public Binding bindDirect(){
-        return BindingBuilder.bind(rabbitmqQueue()).to(rabbitmqDirectExchange()).with("recording.uri.chat");
+        return BindingBuilder.bind(rabbitmqQueue()).to(rabbitmqDirectExchange()).with("chat.content");
     }
 
 }
