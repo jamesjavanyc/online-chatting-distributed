@@ -25,9 +25,9 @@ spring:
           enabled: true
   rabbitmq:
     port: 5672
-    host: 192.168.1.67
-    username: admin
-    password: james
+    host: 127.0.0.1
+    username: guest
+    password: guest
     #这个配置是保证提供者确保消息推送到交换机中，不管成不成功，都会回调
     publisher-confirm-type: correlated
     #保证交换机能把消息推送到队列中
